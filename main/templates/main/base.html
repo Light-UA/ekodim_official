@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css"%}">
+{#    <meta name="keywords" content="">#}
     <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
     <!-- Стиль footer-a для главной страницы -->
     {% block css %}
@@ -37,25 +38,25 @@
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                Информация
+                                Інформація
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item  text-white" href="#">Доставка и оплата</a></li>
-                                <li><a class="dropdown-item  text-white" href="#">Контактная информация</a></li>
+                                <li><a class="dropdown-item  text-white" href="#">Доставка та оплата</a></li>
+                                <li><a class="dropdown-item  text-white" href="#">Контакти</a></li>
                                 <li><a class="dropdown-item  text-white" href="{% url 'main:about' %}">Про нас</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  text-white" href="carts/cart.html">Корзина</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link  text-white" href="users/login.html">Войти</a>
-                        </li>
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link  text-white" href="users/login.html">Войти</a>#}
+{#                        </li>#}
                         <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Мой профиль
-                            </a>
+{#                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"#}
+{#                                data-bs-toggle="dropdown" aria-expanded="false">#}
+{#                                Мой профиль#}
+{#                            </a>#}
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item  text-white" href="carts/cart.html">Корзина</a></li>
                                 <li><a class="dropdown-item  text-white" href="users/profile.html">Личный кабинет</a>
@@ -64,13 +65,13 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item  text-white" href="#">Выйти</a></li>
+{#                                <li><a class="dropdown-item  text-white" href="#">Выйти</a></li>#}
                             </ul>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success text-white" type="submit">Поиск</button>
+                        <input class="form-control me-2" type="search" placeholder="Знайти" aria-label="Search">
+                        <button class="btn btn-outline-success text-white" type="submit">Пошук</button>
                     </form>
                 </div>
             </div>
@@ -85,23 +86,23 @@
                     <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Каталог
-                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg"} height="16">
+                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg" %} "height="16">
                     </button>
                     <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Все товары</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Кухня</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Спальня</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Гостинная</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Офис</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Фурнитура</a></li>
-                        <li><a class="dropdown-item text-white" href="goods/catalog.html">Декор</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Всі товари</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Кухня</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Спальня</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Гостинная</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Офис</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Фурнитура</a></li>
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Декор</a></li>
                     </ul>
                 </div>
                 <!-- Значек корзины, вызывает модальное окно -->
                 <div>
                     <button type="button" class="btn btn-dark btn-secondary d-flex" id="modalButton"
                         aria-expanded="false">
-                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg"%}" alt="Catalog Icon" width="24"
+                        <img class="mx-1" src="{% static "deps/icons/basket2-fill.svg"%}" alt="Catalog Icon" width="24"
                             height="24">
                         <span id="goods-in-cart-count">0</span>
                     </button>
