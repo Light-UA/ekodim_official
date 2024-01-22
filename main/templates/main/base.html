@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css"%}">
 {#    <meta name="keywords" content="">#}
     <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+    <link rel="stylesheet" href="{% static "deps/css/product_style.css" %}">
     <!-- Стиль footer-a для главной страницы -->
     {% block css %}
 
@@ -30,7 +31,7 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container">
-                <a class="navbar-brand" href="{% url "main:index" %}">Home</a>
+                <a class="navbar-brand" href="{% url "main:index" %}">Головна</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -194,6 +195,7 @@
     {% block footer %}
 
     {% endblock footer %}
+    <script src="{% static "deps/js/main.js" %}"></script>
     <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
     <script src="{% static "deps/js/jquery-events.js" %}"></script>
     <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
