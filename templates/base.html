@@ -1,4 +1,5 @@
 {% load static %}
+{% load static %}
 {% load goods_tags %}
 
 
@@ -11,18 +12,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css"%}">
-{#    <meta name="keywords" content="">#}
+    <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css" %}">
+    <meta name="keywords" content="">
     <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+    <link rel="stylesheet" href="{% static "deps/css/catalog_style.css" %}">
     <link rel="stylesheet" href="{% static "deps/css/product_style.css" %}">
+    <link rel="stylesheet" href="{% static "deps/css/index.css" %}">
+
+{#    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">#}
     <!-- Стиль footer-a для главной страницы -->
     {% block css %}
 
     {% endblock css %}
     <!-- Favicons for different platforms -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{ %static"deps/favicon/apple-touch-icon.png"% }">
-    <link rel="icon" type="image/png" sizes="32x32" href="{ %static"deps/favicon/favicon-32x32.png"% }">
-    <link rel="icon" type="image/png" sizes="16x16" href="{ %static"deps/favicon/favicon-16x16.png"% }">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "deps/favicon/apple-touch-icon.png"% }">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "deps/favicon/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "deps/favicon/favicon-16x16.png"% }">
     <link rel="manifest" href="{% static "deps/favicon/site.webmanifest" %}">
     <title>{{ title }}</title>
 </head>
@@ -45,39 +50,48 @@
                                 Інформація
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item  text-white" href="#">Доставка та оплата</a></li>
-                                <li><a class="dropdown-item  text-white" href="#">Контакти</a></li>
-                                <li><a class="dropdown-item  text-white" href="{% url 'main:about' %}">Про нас</a></li>
+                                <li><a class="dropdown-item  text-white" href="{% url 'main:delivery' %}">Доставка та оплата</a></li>
+                                <li><a class="dropdown-item  text-white" href="{% url 'main:contacts' %}">Наші контакти</a></li>
+                                <li><a class="dropdown-item  text-white" href="{% url "main:about" %}">Про нас</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link  text-white" href="carts/cart.html">Корзина</a>
                         </li>
-{#                        <li class="nav-item">#}
-{#                            <a class="nav-link  text-white" href="users/login.html">Войти</a>#}
-{#                        </li>#}
-                        <li class="nav-item dropdown ">
-{#                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"#}
-{#                                data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                                Мой профиль#}
-{#                            </a>#}
+                        {% if not user.is_authenticated %}
+                              <li class="nav-item">
+                            <a class="nav-link  text-white" href="{% url 'user:login' %}">Увійти</a>
+                        </li>
+                        {% else %}
+                             <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Мій профіль
+                            </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item  text-white" href="carts/cart.html">Корзина</a></li>
-{#                                <li><a class="dropdown-item  text-white" href="users/profile.html">Личный кабинет</a>#}
-{#                                </li>#}
-                                <li><a class="dropdown-item  text-white" href="#">Админ панель</a></li>
+{#                                <li><a class="dropdown-item  text-white" href="carts/cart.html">Корзина</a></li>#}
+                                <li><a class="dropdown-item  text-white" href="{% url 'user:profile' %}">Особистий кабінет</a>
+                                </li>
+                                {% if user.is_admin or user.is_staff  %}
+                                	 <li><a class="dropdown-item  text-white" href="{% url "admin:index" %}">Адмін панель</a></li>
+                                {% endif %} 
+
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-{#                                <li><a class="dropdown-item  text-white" href="#">Выйти</a></li>#}
+                                <li><a class="dropdown-item  text-white" href="{% url 'user:logout' %}">Вийти</a></li>
                             </ul>
                         </li>
+                        {% endif %} 
+
+
                     </ul>
                     <form class="d-flex" role="search" action="{% url "catalog:search" %}" method="get">
                         <input class="form-control me-2" type="search" name="q" placeholder="Знайти" aria-label="Search">
                         <button class="btn btn-outline-success text-white" type="submit">Пошук</button>
                     </form>
                 </div>
+
             </div>
         </nav>
     </header>
@@ -90,7 +104,7 @@
                     <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Каталог
-                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg" %} "height="16">
+                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg" %} " height="16">
                     </button>
                     <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
                         {% tag_categories as categories %}
@@ -106,8 +120,8 @@
                 <div>
                     <button type="button" class="btn btn-dark btn-secondary d-flex" id="modalButton"
                         aria-expanded="false">
-                        <img class="mx-1" src="{% static "deps/icons/basket2-fill.svg"%}" alt="Catalog Icon" width="24"
-                            height="24">
+                        <img class="mx-1" src="{% static "deps/icons/basket2-fill.svg" %}" alt="Catalog Icon" width="24"
+                             height="24">
                         <span id="goods-in-cart-count">0</span>
                     </button>
                 </div>
@@ -148,7 +162,7 @@
                                                     <div class="col p-0">
                                                         <p>x 100.00 = </p>
                                                     </div>
-                                                    <div class="col p-0"><strong>100.00 $</strong></div>
+                                                    <div class="col p-0"><strong>100.00 грн</strong></div>
                                                     <div class="col p-0">
                                                         <a href="#" class="remove-from-cart" data-cart-id="">
                                                             <img class="mx-1" src="{% static "deps/icons/trash3-fill.svg" %}"
@@ -161,14 +175,14 @@
                                     </div>
                                     <div class="card mb-3 shadow-lg">
                                         <div class="card-footer">
-                                            <p class="float-left">Итого <strong>1</strong> товар(а) на сумму</p>
-                                            <h4 class="float-left"><strong>100.00 $</strong></h4>
+                                            <p class="float-left">Разом<strong>1</strong> товар(и) на суму</p>
+                                            <h4 class="float-left"><strong>100.00 грн</strong></h4>
                                         </div>
                                     </div>
                                     <!-- Закончилась разметка корзины -->
                                 </div>
                                 <a class="btn btn-dark" href="orders/create_order.html">
-                                    Оформить заказ
+                                    Оформити замовлення
                                 </a>
                             </div>
                         </div>
@@ -185,6 +199,7 @@
                 </div>
                 <div class="col-lg-10">
                     <!-- Контент на странице -->
+                    {% include "includes/notifications.html" %}
                     {% block content %}
 
                     {% endblock content %}
@@ -192,10 +207,12 @@
             </div>
         </div>
     </section>
-    {% block footer %}
 
-    {% endblock footer %}
-    <script src="{% static "deps/js/main.js" %}"></script>
+ {% block footer %}
+
+ {% endblock %}
+
+
     <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
     <script src="{% static "deps/js/jquery-events.js" %}"></script>
     <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
@@ -203,3 +220,5 @@
 </body>
 
 </html>
+
+

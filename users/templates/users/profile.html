@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Профіль з даними користувача -->
+            <div class="col-md-5">
+                <div class="bg-white p-4 mb-4 mx-2 rounded my-shadow">
+                    <h3 class="text-center mb-4">Профіль користувача</h3>
+                    <form action="{% url 'users:profile' %}" method="post">
+                    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="id_first_name" class="form-label">Ім'я*</label>
+                                <input type="text" class="form-control" id="id_first_name" name="first_name" placeholder="Введіть ваше ім'я" value="{{ form.first_name.value }}" required>
+                                {% if form.first_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="id_last_name" class="form-label">Прізвище*</label>
+                                <input type="text" class="form-control" id="id_last_name" name="last_name" placeholder="Введіть ваше прізвище" value="{{ form.last_name.value }}" required>
+                                {% if form.last_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="id_username" class="form-label">Ім'я користувача*</label>
+                                <input type="text" class="form-control" id="id_username" name="username" placeholder="Введіть ваше ім'я користувача" value="{{ form.username.value }}" required>
+                                {% if form.username.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="id_email" class="form-label">Email*</label>
+                                <input type="email" class="form-control" id="id_email" name="email" placeholder="Введіть ваш email *youremail@example.com" value="{{ form.email.value }}" required>
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Зберегти</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Кошик -->
+            <div class="col-md-7">
+                <div class="bg-white p-4 mb-4 mx-2 rounded my-shadow">
+                    <h3 class="text-center mb-4">Кошик</h3>
+                    <div class="container" id="cart-items-container">
+                        <!-- Розмітка кошика -->
+                        <!-- Ваша розмітка кошика тут -->
+                        <!-- Закінчилась розмітка кошика -->
+                    </div>
+                    <a class="btn btn-dark" href="/orders/create_order.html">Оформити замовлення</a>
+                </div>
+            </div>
+            <!-- Оформлені замовлення -->
+            <div class="col-md-12">
+                <div class="bg-white p-4 mb-4 mx-2 rounded my-shadow">
+                    <h3 class="text-center mb-4">Мої замовлення</h3>
+                    <!-- Розмітка замовлень -->
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="accordion" id="accordionExample">
+                                    <!-- Перше замовлення -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading1">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                                Замовлення № 256 - 09 вересня 2023 9:04 | Статус: <strong class="mx-2">В обробці</strong>
+                                            </button>
+                                        </h2>
+                                        <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p><strong>Товар:</strong> Комплект стіл і три стільці</p>
+                                                <p><strong>Кількість:</strong> 1</p>
+                                                <p><strong>Ціна:</strong> 255.00 $</p>
+                                                <p><strong>Загальна вартість:</strong> 255.00 $</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Друге замовлення -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading2">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                                Замовлення № 248 - 01 серпня 2023 11:28 | Статус: <strong> Отримано</strong>
+                                            </button>
+                                        </h2>
+                                        <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p><strong>Товар:</strong> Стіл офісний</p>
+                                                <p><strong>Кількість:</strong> 2</p>
+                                                <p><strong>Ціна:</strong> 30.00 $</p>
+                                                <p><strong>Загальна вартість:</strong> 60.00 $</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Закінчилась розмітка замовлень -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

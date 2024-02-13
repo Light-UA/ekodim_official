@@ -1,38 +1,23 @@
-{% extends 'main/base.html' %}
+
+
+{% extends 'base.html' %}
 
 {% load static %}
 
+
+
 {% block content %}
-    <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p id="modal-message"></p>
+<div class="product-card my-shadow" id="productCard" data-product-name="{{ product.name }}">
+    <div>
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; object-fit: contain;">
+    </div>
+    <div class="product-info">
+        <h2 class="product-title">{{ product.name }}</h2>
+        <p class="product-desc">{{ product.description }}</p>
+        <h5  class="product-price">{{ product.price }} грн</h5>
+        <a id="addToCartBtn" class="btn btn-dark inline-block">Додати до кошика</a>
     </div>
 </div>
-
-    <!-- Ваш HTML-код ... -->
-
-<div class="product-card" id="productCard" data-product-name="{{ product.name }}">
-    <img src="{{ product.image.url }}" alt="{{ product.name }}">
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <h5 class="product-price">{{ product.price }} грн</h5>
-    <div class="quantity">
-        <label for="quantity">Кількість:</label>
-        <input type="number" id="quantity" name="quantity" value="1" min="1">
-    </div>
-    <button id="addToCartBtn">Додати до кошика</button>
-    <div class="additional-buttons" style="display: none;">
-        <button id="continueShoppingBtn">Продовжити покупки</button>
-        <button id="checkoutBtn">Оформити замовлення</button>
-    </div>
-</div>
-
-<!-- Ваш HTML-код ... -->
-
-
 {% endblock content %}
-
-
 
 

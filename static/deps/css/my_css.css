@@ -1,5 +1,5 @@
 body {
-  background-image: url("../images/bg-image.jpg");
+  background-image: url("../images/Дизайн без названия.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -36,4 +36,49 @@ body {
   border-radius: 15px;
   font-size: 0.7rem;
 }
+
+.search-results-heading {
+    font-size: 25px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 38px;
+
+}
+
+.info-m {
+    margin-top: 95px !important;
+}
+
+
+.title-info {
+    text-align: center;
+    margin-bottom: 30px !important;
+    margin-top: -15px !important;
+}
+
+.info-text{
+    margin-bottom: 20px !important;
+}
+
+.result {
+
+    font-size: 25px;
+}
+
+.no-result {
+    margin-top: 30px;
+}
+
+@media (max-width: 400px) {
+    .no-result {
+        font-size: 25px;
+        margin-top: 85px;
+}
+    
+}
+
+
+
 

@@ -1,25 +1,21 @@
-{% extends "main/base.html" %}
+{% extends "base.html" %}
 
 {% load static %}
 
 
-{% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock css %}
 
 
 {% block content %}
-    <div class="mt-5 pt-5 bg-white custom-shadow rounded">
-	 <h2 class="m-2"><strong>{{ content }}</strong></h2>
-     <p class="m-2 b-pad">{{ text_on_page }}</p>
+    <div class="mt-5 pt-5 bg-white my-shadow rounded info-m">
+        <h2 class="m-2 title-info"><strong>
+            {{ title }}
+        </strong></h2>
+        <p class="m-2 b-pad info-text">
+            У сучасному світі чистота та гігієна стали необхідними складниками повсякденного життя. Тому наша компанія спеціалізується на виробництві екологічних миючих засобів та косметики для дому, зорієнтованих на боротьбу з глобальним забрудненням та кліматичними змінами.
+            <br><br>
+            Наша місія полягає в тому, щоб пропонувати споживачам ефективні засоби для дому, які відповідають найвищим стандартам якості та допомагають зберігати чистоту та здоров'я. Ми розробляємо свої власні рецептури, тестуємо продукцію на відповідність стандартам та вимогам клієнтів, щоб гарантувати їхнє задоволення і довіру до нашої марки.
+            <br><br>
+            Наші принципи – це якість за доступною ціною, екологічність, стильний дизайн та затишок у кожному домі. Ми пишаємося тим, що наша продукція виготовляється в Україні за найвищими стандартами якості та з дотриманням сучасних тенденцій в галузі екології.
+        </p>
     </div>
-{% endblock content %}
-
-{% block footer %}
-    <footer class="py-4 bg-dark">
-        <div class="container">
-            <!-- <p class="m-0 text-center text-white">Copyright &copy; Home Python Hub Studio 2023</p> -->
-        </div>
-    </footer>
-{% endblock footer %}
-
+{% endblock %}
