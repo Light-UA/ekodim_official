@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User( AbstractUser ):
+    email = models.EmailField( blank=True, null=True )
+
     class Meta:
         db_table = 'user'
         verbose_name = 'Пользователя'
