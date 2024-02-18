@@ -1,8 +1,9 @@
-
-
 {% extends 'base.html' %}
-
 {% load static %}
+
+{% block modal_cart %}
+    {% include "includes/cart_button.html" %}
+{% endblock %}
 
 
 
@@ -15,7 +16,7 @@
         <h2 class="product-title">{{ product.name }}</h2>
         <p class="product-desc">{{ product.description }}</p>
         <h5  class="product-price">{{ product.price }} грн</h5>
-        <a id="addToCartBtn" class="btn btn-dark inline-block">Додати до кошика</a>
+        <a href="{% url 'cart:cart_add' product.slug %}" id="addToCartBtn" class="btn btn-dark inline-block">Додати до кошика</a>
     </div>
 </div>
 {% endblock content %}

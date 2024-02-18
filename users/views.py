@@ -16,7 +16,12 @@ def login(request):
             user = auth.authenticate( username=username, password=password )
             if user:
                 auth.login( request, user )
-                messages.success( request, f"{username}, Вы вошли в аккаунт" )
+                messages.success( request, f"{username}, Ви увійшли до облікового запису" )
+
+                redirect_page = request.POST.get('next', None)
+                if redirect_page and redirect_page != reverse('users:logout'):
+                    return HttpResponseRedirect(request.POST.get('next'))
+
                 return HttpResponseRedirect( reverse( 'main:index' ) )
     else:
         form = UserLoginForm()
@@ -35,7 +40,7 @@ def registration(request):
             form.save()
             user = form.instance
             auth.login( request, user )
-            messages.success( request, f"{user.username}, Вы успешно зарегистрированы и вошли в аккаунт" )
+            messages.success( request, f"{user.username}, Ви успішно зареєстровані та увійшли до облікового запису" )
             return HttpResponseRedirect( reverse( 'main:index' ) )
     else:
         form = UserRegistrationForm()
@@ -53,7 +58,7 @@ def profile(request):
         form = ProfileForm( data=request.POST, instance=request.user, files=request.FILES )
         if form.is_valid():
             form.save()
-            messages.success( request, "Профайл успешно обновлен" )
+            messages.success( request, "Профіль успішно оновлено" )
             return HttpResponseRedirect( reverse( 'user:profile' ) )
     else:
         form = ProfileForm( instance=request.user )
@@ -67,6 +72,10 @@ def profile(request):
 
 @login_required
 def logout(request):
-    messages.success( request, f"{request.user.username}, Вы вышли из аккаунта" )
+    messages.success( request, f"{request.user.username}, Ви вийшли з облікового запису" )
     auth.logout( request )
     return redirect( reverse( 'main:index' ) )
+
+
+def users_cart(request):
+    return render(request, 'users/users_cart.html')
