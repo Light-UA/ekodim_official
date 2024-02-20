@@ -52,6 +52,11 @@ body {
 }
 
 
+.choice {
+    margin-bottom: 10px;
+    }
+
+
 .title-info {
     text-align: center;
     margin-bottom: 30px !important;
@@ -83,8 +88,8 @@ body {
     .no-result {
         font-size: 25px;
         margin-top: 85px;
-}
-    
+    }
+
 }
 
 
