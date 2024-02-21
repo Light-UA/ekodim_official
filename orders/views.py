@@ -24,10 +24,7 @@ def create_order(request):
                         order = Order.objects.create(
                             user=user,
                             phone_number=form.cleaned_data['phone_number'],
-                            requires_delivery_1=True,
-                            delivery_address=form.cleaned_data['delivery_address'],
-                            payment_on_get=form.cleaned_data['payment_on_get'],
-                        )
+                            )
                         # Создать заказанные товары
                         for cart_item in cart_items:
                             product=cart_item.product
@@ -36,8 +33,8 @@ def create_order(request):
                             quantity=cart_item.quantity
 
                             if product.quantity < quantity:
-                                raise ValidationError(f'Недостаточное количество товара {name} на складе\
-                                                       В наличии - {product.quantity}')
+                                raise ValidationError(f'Недостатня кількість товару {name} на складі\
+                                                       В наявності - {product.quantity}')
 
                             OrderItem.objects.create(
                                 order=order,
@@ -66,9 +63,9 @@ def create_order(request):
         form = CreateOrderForm(initial=initial)
 
     context = {
-        'title': 'Home - Оформление заказа',
+        'title': 'Оформлення замовлення',
         'form': form,
-        'orders': True,
+        'order': True,
     }
 
     # Видаляємо рядок, що спробує отримати дані з cleaned_data, оскільки вони ще не доступні.

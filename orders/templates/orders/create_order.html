@@ -9,7 +9,6 @@
         <div class="container" id="cart-items-container">
             <!-- Розмітка кошика -->
             {% user_carts request as carts %}
-
             {% include "carts/includes/included_cart.html" %}
             <!-- Закінчилася розмітка кошика -->
         </div>
@@ -49,48 +48,6 @@
                             {% if form.phone_number.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.phone_number.errors}}</div>
                             {% endif %}
-                        </div>
-                        <!-- Додайте цей блок після номера телефону і перед адресою доставки -->
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Спосіб доставки:</label>
-                            <div class="form-check form-check-block">
-                                <input class="form-check-input" type="radio" name="requires_delivery"
-                                    id="id_requires_delivery1" value="1" checked>
-                                <label class="choice form-check-label" for="id_requires_delivery1">Нова пошта</label>
-                            </div>
-                            <div class="form-check form-check-block">
-                                <input class="form-check-input" type="radio" name="requires_delivery"
-                                    id="id_requires_delivery2" value="0">
-                                <label class="choice form-check-label" for="id_requires_delivery2">Укрпошта</label>
-                            </div>
-                        </div>
-                        <!-- Кінець блоку для способу доставки -->
-
-                        <div class="col-md-12 mb-3">
-                            <label for="id_delivery_address" class="form-label">Адреса
-                                доставки*:</label>
-                            <textarea class="form-control" id="id_delivery_address"
-                                value="{% if form.delivery_address.value %}{{ form.delivery_address.value }}{% endif %}"
-                                name="delivery_address" rows="2"></textarea>
-                            {% if form.delivery_address.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{form.delivery_address.errors}}</div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Спосіб оплати: </label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="payment_on_get"
-                                    id="id_payment_on_get1" value="0" checked>
-                                <label class="choice form-check-label" for="id_payment_on_get1">Оплата готівкою при отриманні</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="payment_on_get"
-                                    id="id_payment_on_get2" value="1">
-                                <label class=" choice form-check-label" for="id_payment_on_get2">Оплата карткою</label>
-                                {% if form.payment_on_get.errors %}
-                                    <div class="alert alert-danger alert-dismissible fade show">{{form.payment_on_get.errors}}</div>
-                                {% endif %}
-                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-dark">Оформити замовлення</button>
