@@ -34,11 +34,13 @@ def login(request):
                     return HttpResponseRedirect(request.POST.get('next'))
 
                 return HttpResponseRedirect(reverse('main:index'))
+            else:
+                messages.error(request, "Неправильне ім'я користувача або пароль")
     else:
         form = UserLoginForm()
 
     context = {
-        'title': 'Home - Авторизация',
+        'title': 'Авторизація',
         'form': form
     }
     return render(request, 'users/login.html', context)
@@ -64,7 +66,7 @@ def registration(request):
         form = UserRegistrationForm()
 
     context = {
-        'title': 'Home - Регистрация',
+        'title': 'Home - Регістрація',
         'form': form
     }
     return render(request, 'users/registration.html', context)
@@ -76,7 +78,6 @@ def profile(request):
         form = ProfileForm(data=request.POST, instance=request.user, files=request.FILES)
         if form.is_valid():
             form.save()
-            messages.success(request, "Профіль успішно оновлено")
             return HttpResponseRedirect(reverse('user:profile'))
     else:
         form = ProfileForm(instance=request.user)

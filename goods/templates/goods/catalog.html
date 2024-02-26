@@ -11,13 +11,13 @@
 <div class="container-fluid">
     <div class="row mt-5 mb-4"> <!-- Додано класи mt-5 та mb-4 -->
         <div class="col">
-            {% if request.GET.q %}
-            <h3 class=" result search-results-heading">Результати пошуку за запитом {{ request.GET.q }}</h3> <!-- Додано клас search-results-heading -->
-            {% if not goods %}
-            <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-            <h2 class="result no-result search-results-heading">Нічого не знайдено</h2>
-            {% endif %}
-            {% endif %}
+{#            {% if request.GET.q %}#}
+{#            <h3 class=" result search-results-heading">Результати пошуку за запитом {{ request.GET.q }}</h3> <!-- Додано клас search-results-heading -->#}
+{#            {% if not goods %}#}
+{#            <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">#}
+{#            <h2 class="result no-result search-results-heading">Нічого не знайдено</h2>#}
+{#            {% endif %}#}
+{#            {% endif %}#}
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 {% for product in goods %}
                 <!-- Карта товара -->

@@ -1,83 +1,25 @@
-{#{% extends 'base.html' %}#}
-{#{% load static %}#}
-{#{% load carts_tags %}#}
-{##}
-{#{% block content %}#}
-{#<div class="row">#}
-{#    <div class="container mt-5">#}
-{#        <div class="row">#}
-{#            <!-- Оформлені замовлення -->#}
-{#            <div class="col-md-12">#}
-{#                <div class="bg-white p-4 mb-4 mx-2 rounded my-shadow">#}
-{#                    <h3 class="text-center mb-4">Мої замовлення</h3>#}
-{#                    <!-- Розмітка замовлень -->#}
-{#                    <div class="container">#}
-{#                        <div class="row">#}
-{#                            <div class="col-md-12">#}
-{#                                <div class="accordion" id="accordionExample">#}
-{#                                    {% for order in orders %}#}
-{#                                    <div class="accordion-item">#}
-{#                                        <h2 class="accordion-header" id="heading{{ order.id }}">#}
-{#                                            <button class="accordion-button{% if forloop.first %} collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="true" aria-controls="collapse{{ order.id }}">#}
-{#                                                Замовлення № {{ order.id }} - {{ order.created_timestamp }} | Статус: <strong class="mx-2">{{ order.status }}</strong>#}
-{#                                            </button>#}
-{#                                        </h2>#}
-{#                                        <div id="collapse{{ order.id }}" class="accordion-collapse collapse{% if forloop.first %} show{% endif %}" aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">#}
-{#                                            <div class="accordion-body">#}
-{#                                                {% for item in order.orderitem_set.all %}#}
-{#                                                <a class="text-black" href="{% url 'goods:product' item.product.slug %}">#}
-{#                                                    <p><strong>Товар: </strong>{{ item.product.name }} </p>#}
-{#                                                </a>#}
-{#                                                <p><strong>Кількість: </strong>{{ item.quantity }}</p>#}
-{#                                                <p><strong>Ціна:</strong>{{ item.price }} грн</p>#}
-{#                                                <p><strong>Загальна вартість: </strong>{{ item.products_price }} грн</p>#}
-{#                                                {% endfor %}#}
-{#                                            </div>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <!-- Закінчилась розмітка замовлень -->#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
-{#{% endblock %}#}
-
-
 {% extends "base.html" %}
 {% load static %}
 {% load carts_tags %}
-
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-lg-8">
-            <!-- Профіль з даними користувача -->
-            <!-- Кошик -->
             {% user_carts request as carts %}
             <div class="bg-white p-4 mb-4 rounded custom-shadow">
                 <h3 class="text-center mb-4">Кошик</h3>
                 <div class="container" id="cart-items-container">
-                    <!-- Розмітка кошика -->
-                    {% include "carts/includes/included_cart.html" %}
-                    <!-- Закінчилась розмітка кошика -->
+                    {% include 'carts/includes/included_cart.html' %}
                 </div>
             </div>
-            <!-- Оформлені замовлення -->
             <div class="bg-white p-4 mb-4 rounded custom-shadow">
                 <h3 class="text-center mb-4">Мої замовлення</h3>
-                <!-- Розмітка замовлень -->
                 <div class="accordion" id="accordionExample">
                     {% for order in orders %}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="heading{{ order.id }}">
                             <button class="accordion-button {% if order != orders.0 %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ order.id }}" aria-expanded="false" aria-controls="collapse{{ order.id }}">
-                                Замовлення № {{ order.id }} - {{ order.created_timestamp }} | Статус: <strong class="mx-2">{{order.requires_delivery}}</strong>
+                                Замовлення № {{ order.id }} - {{ order.created_timestamp }} | Статус: <strong class="mx-2">{{order.status}}</strong>
                             </button>
                         </h2>
                         <div id="collapse{{ order.id }}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}" aria-labelledby="heading{{ order.id }}">
@@ -107,7 +49,6 @@
                     </div>
                     {% endfor %}
                 </div>
-                <!-- Закінчилась розмітка замовлень -->
             </div>
         </div>
     </div>

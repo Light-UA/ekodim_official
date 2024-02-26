@@ -1,18 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from goods.models import Products
 from goods.models import Categories
 
 
 def index(request):
+    # Отримати акційні товари
+    sale_products = Products.objects.filter(category__slug='akcijni-propiziciyi', is_on_sale=True)
 
     context = {
         'title': 'Головна',
-        'content': '',
-
+        'sale_products': sale_products,
     }
 
-    return render( request, 'main/index.html', context )
+    return render(request, 'main/index.html', context)
 
 
 def about(request):

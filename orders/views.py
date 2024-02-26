@@ -9,8 +9,12 @@ from carts.models import Cart
 from orders.forms import CreateOrderForm
 from orders.models import Order, OrderItem
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+
 @login_required
 def create_order(request):
+    order_exists = Order.objects.filter(user=request.user).exists()
     if request.method == 'POST':
         form = CreateOrderForm(data=request.POST)
         if form.is_valid():
@@ -66,9 +70,7 @@ def create_order(request):
         'title': 'Оформлення замовлення',
         'form': form,
         'order': True,
+        'order_exists': order_exists
     }
-
-    # Видаляємо рядок, що спробує отримати дані з cleaned_data, оскільки вони ще не доступні.
-    # context['requires_delivery'] = form.cleaned_data.get('requires_delivery')
 
     return render(request, 'orders/create_order.html', context=context)

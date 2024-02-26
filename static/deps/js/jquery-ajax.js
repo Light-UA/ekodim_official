@@ -1,4 +1,3 @@
-// Когда html документ готов (прорисован)
 $(document).ready(function () {
     let successMessage = $("#jq-notification");
 
@@ -28,11 +27,14 @@ $(document).ready(function () {
                 goodsInCartCount.text(cartCount);
 
                 let cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                updateCartItems(cartItemsContainer, data.cart_items_html);
+
+                // Перевірка кількості товарів для відображення кнопки "Оформити замовлення" після оновлення кошика
+                checkCartItemsCount();
             },
 
             error: function (data) {
-                console.log("Ошибка при добавлении товара в корзину");
+                console.log("Помилка при добавлении товара в корзину");
             },
         });
     });
@@ -64,11 +66,14 @@ $(document).ready(function () {
                 goodsInCartCount.text(cartCount);
 
                 let cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                updateCartItems(cartItemsContainer, data.cart_items_html);
+
+                // Перевірка кількості товарів для відображення кнопки "Оформити замовлення" після оновлення кошика
+                checkCartItemsCount();
             },
 
             error: function (data) {
-                console.log("Помилка при додаванні до корзини");
+                console.log("Помилка при видаленні товару з корзини");
             },
         });
     });
@@ -118,12 +123,35 @@ $(document).ready(function () {
                 goodsInCartCount.text(cartCount);
 
                 let cartItemsContainer = $("#cart-items-container");
-                cartItemsContainer.html(data.cart_items_html);
+                updateCartItems(cartItemsContainer, data.cart_items_html);
+
+                // Перевірка кількості товарів для відображення кнопки "Оформити замовлення" після оновлення кошика
+                checkCartItemsCount();
             },
             error: function (data) {
-                console.log("Помилка при додаванні товара до корзини");
+                console.log("Помилка при оновленні кошика");
             },
         });
+    }
+
+    function updateCartItems(container, itemsHtml) {
+        container.html(itemsHtml);
+    }
+
+    // Функція для перевірки кількості товарів у кошику та додавання кнопки "Оформити замовлення"
+    function checkCartItemsCount() {
+        let goodsInCartCount = $("#goods-in-cart-count");
+        let cartCount = parseInt(goodsInCartCount.text() || 0);
+
+        // Перевіряємо, чи вже є на сторінці кнопка "Оформити замовлення"
+        // Якщо так, то не створюємо нову кнопку
+        if (cartCount > 0 && $(".order-button").length === 0) {
+            let orderButtonHtml = '<a class="btn btn-dark order-button" href="{% url "orders:create_order" %}">Оформити замовлення</a>';
+            $("#cart-items-container").append(orderButtonHtml);
+        } else if (cartCount === 0) {
+            // Приховуємо кнопку "Оформити замовлення", якщо товарів у кошику немає
+            $(".order-button").remove();
+        }
     }
 
     let notification = $('#notification');
@@ -141,24 +169,6 @@ $(document).ready(function () {
     $('#exampleModal .btn-close').click(function () {
         $('#exampleModal').modal('hide');
     });
-
-    $("input[name='requires_delivery']").change(function() {
-        let selectedValue = $(this).val();
-    });
-
-   const paymentOptions = document.querySelectorAll('.payment-option');
-
-    function changeActiveOption() {
-        paymentOptions.forEach(option => {
-            option.classList.remove('active');
-        });
-        this.classList.add('active');
-        const radioButton = this.querySelector('input[type="radio"]');
-        radioButton.checked = true;
-    }
-
-    paymentOptions.forEach(option => {
-        option.addEventListener('click', changeActiveOption);
-    });
-
 });
+
+
