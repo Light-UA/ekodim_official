@@ -6,10 +6,10 @@ from goods.models import Categories
 
 def index(request):
     # Отримати акційні товари
-    sale_products = Products.objects.filter(category__slug='akcijni-propiziciyi', is_on_sale=True)
+    sale_products = Products.objects.filter(category__slug='akcijni-propiziciyi', discount__gt=0)
 
     context = {
-        'title': 'Головна',
+        'title': 'EkoDim',
         'sale_products': sale_products,
     }
 

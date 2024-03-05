@@ -8,67 +8,58 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row mt-5 mb-4"> <!-- Додано класи mt-5 та mb-4 -->
-        <div class="col">
-{#            {% if request.GET.q %}#}
-{#            <h3 class=" result search-results-heading">Результати пошуку за запитом {{ request.GET.q }}</h3> <!-- Додано клас search-results-heading -->#}
-{#            {% if not goods %}#}
-{#            <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">#}
-{#            <h2 class="result no-result search-results-heading">Нічого не знайдено</h2>#}
-{#            {% endif %}#}
-{#            {% endif %}#}
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                {% for product in goods %}
-                <!-- Карта товара -->
-                <div class="col mt-4">
-                    <div class="card border-primary rounded my-shadow h-100">
-                        {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                        {% else %}
-                        <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
-                        {% endif %}
-                        <div class="card-body">
-                            <a href="{% url "catalog:product" product.slug %}">
-                                <p class="card-title">
-                                    {% autoescape off %}
-                                    {% if product.headline %}
-                                    {{product.headline}}
-                                    {% else %}
-                                    {{ product.name }}
-                                    {% endif %}
-                                    {% endautoescape %}
-                                </p>
-                            </a>
-                            <p class="card-text">
+    <div class="container-fluid">
+    <div class="mt-5 mb-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for product in goods %}
+            <!-- Карта товара -->
+            <div class="col mt-4 col-6"> <!-- Змінено тут -->
+                <div class="card border-primary rounded my-shadow h-100 position-relative"> <!-- Змінено тут -->
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url "catalog:product" product.slug %}">
+                            <p class="card-title">
                                 {% autoescape off %}
-                                {% if product.bodyline %}
-                                {{product.bodyline|truncatechars:100}}
+                                {% if product.headline %}
+                                {{product.headline}}
                                 {% else %}
-                                {{ product.description|truncatechars:35 }}
+                                {{ product.name }}
                                 {% endif %}
                                 {% endautoescape %}
                             </p>
-                            <p class="product_id">id: {{ product.display_id }}</p>
-                            <div class="d-flex justify-content-between">
-                                {% if product.discount %}
-                                <p><s>{{product.price}}</s> грн</p>
-                                <p><strong>{{ product.sell_price }} грн</strong></p>
-                                <span class="badge bg-warning text-dark">Скидка {{ product.discount }} %</span>
-                                {% else %}
-                                <p><strong>{{ product.price }} грн</strong></p>
-                                {% endif %}
-                                <a href="{% url 'cart:cart_add'%}" class="btn add-to-cart" data-product-id="{{ product.id }}">
-                                    {% csrf_token %}
-                                    <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32"
-                                        height="32">
-                                </a>
-                            </div>
-                        </div>
+                        </a>
+                        <p class="card-text">
+                            {% autoescape off %}
+                            {% if product.bodyline %}
+                            {{product.bodyline|truncatechars:100}}
+                            {% else %}
+                            {{ product.description|truncatechars:35 }}
+                            {% endif %}
+                            {% endautoescape %}
+                        </p>
+                        <p class="product_id">id: {{ product.display_id }}</p>
+                        {% if product.discount %}
+                        <p><s>{{product.price}}</s> грн</p>
+                        <p><strong>{{ product.sell_price }} грн</strong></p>
+                        <span class="badge bg-warning text-dark">Знижка {{ product.discount }} %</span>
+                        {% else %}
+                        <p><strong>{{ product.price }} грн</strong></p>
+                        {% endif %}
+                    </div>
+                    <div class="position-absolute bottom-0 end-0 mb-3"> <!-- Змінено тут -->
+                        <a href="{% url 'cart:cart_add'%}" class="btn add-to-cart" data-product-id="{{ product.id }}">
+                            {% csrf_token %}
+                            <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon" width="32"
+                                height="32">
+                        </a>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -99,4 +90,5 @@
     </ul>
 </nav>
 {% endif %}
+
 {% endblock content %}

@@ -26,7 +26,7 @@
                             <label for="id_first_name" class="form-label">Ім'я*:</label>
                             <input type="text" class="form-control" id="id_first_name"
                                 value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
-                                name="first_name" required>
+                                name="first_name" placeholder="Введіть ваше ім'я" required>
                             {% if form.first_name.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
                             {% endif %}
@@ -34,7 +34,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="id_last_name" class="form-label">Прізвище*:</label>
                             <input type="text" class="form-control" id="id_last_name" name="last_name"
-                            value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
+                            value="{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}" placeholder="Введіть ваше прізвище"
                             required>
                             {% if form.last_name.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.last_name.errors}}</div>
@@ -44,7 +44,7 @@
                             <label for="id_phone_number" class="form-label">Номер телефону*:</label>
                             <input type="text" class="form-control" id="id_phone_number" name="phone_number"
                                 value="{% if form.phone_number.value %}{{ form.phone_number.value }}{% endif %}"
-                                placeholder="В формате: XXX-XXX-XX-XX"
+                                placeholder="У форматі: XXX-XXX-XX-XX"
                                 required>
                             {% if form.phone_number.errors %}
                                 <div class="alert alert-danger alert-dismissible fade show">{{form.phone_number.errors}}</div>
