@@ -18,7 +18,9 @@ body {
 }
 
 
-
+.create-order-page .order-btn[href$='create_order'] {
+    display: none;
+}
 
 .dropdown-toggle::after {
   content: none;

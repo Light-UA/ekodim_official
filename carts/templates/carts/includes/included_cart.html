@@ -1,3 +1,73 @@
+{##}
+{#{% load static %}#}
+{##}
+{#<div class="card mb-3 text-bg-light shadow-lg">#}
+{#    {% for cart in carts %}#}
+{#        <div class="card-header">#}
+{#            <h5 class="card-title">{{ cart.product.name }}</h5>#}
+{#        </div>#}
+{#        <ul class="list-group list-group-flush">#}
+{#            <li class="list-group-item">#}
+{#                <div class="row text-center">#}
+{#                    <div class="col p-0">#}
+{#                        <div class="input-group">#}
+{#                            <span class="input-group-btn">#}
+{#                                <button type="button" class="btn btn-dark btn-sm decrement"#}
+{#                                    data-cart-id="{{ cart.id }}"#}
+{#                                    data-cart-change-url="{% url "cart:cart_change" %}">#}
+{#                                    {% csrf_token %}#}
+{#                                    -</button>#}
+{#                            </span>#}
+{#                            <input type="text" class="form-control number" value="{{ cart.quantity }}"#}
+{#                                readonly>#}
+{#                            <span class="input-group-btn">#}
+{#                                <button type="button" class="btn btn-dark btn-sm increment"#}
+{#                                    data-cart-id="{{ cart.id }}"#}
+{#                                    data-cart-change-url="{% url "cart:cart_change" %}">#}
+{#                                    {% csrf_token %}#}
+{#                                    +</button>#}
+{#                            </span>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col p-0">#}
+{#                        <p>x {{ cart.product.sell_price }} = </p>#}
+{#                    </div>#}
+{#                    <div class="col p-0"><strong> {{cart.products_price}} грн</strong></div>#}
+{#                    <div class="col p-0">#}
+{#                        <a href="{% url "cart:cart_remove" %}" class="remove-from-cart"#}
+{#                        data-cart-id="{{ cart.id }}">#}
+{#                            {% csrf_token %}#}
+{#                            <img class="mx-1" src="{% static "deps/icons/trash3-fill.svg" %}"#}
+{#                                alt="Catalog Icon" width="16" height="16">#}
+{#                        </a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </li>#}
+{#        </ul>#}
+{#    {% endfor %}#}
+{#</div>#}
+{#<div class="card mb-3 shadow-lg">#}
+{#    <div class="card-footer">#}
+{#        <p class="float-left">Разом товарів на суму</p>#}
+{#        <h4 class="float-left"><strong>{{ carts.total_price }} грн</strong></h4>#}
+{#    </div>#}
+{#</div>#}
+{#{% if carts and not order %}#}
+{#    {% if user.is_authenticated %}#}
+{#        {% if not cart_button_exists %}#}
+{#            <a class="btn btn-dark order-button" href="{% url 'orders:create_order' %}">#}
+{#                Оформити замовлення#}
+{#            </a>#}
+{#        {% endif %}#}
+{#    {% else %}#}
+{#        {% if not cart_button_exists %}#}
+{#            <a class="btn btn-dark order-button" href="{% url 'users:login' %}?next={% url 'orders:create_order' %}" id="submit-order-btn">#}
+{#                Оформити замовлення#}
+{#            </a>#}
+{#        {% endif %}#}
+{#    {% endif %}#}
+{#{% endif %}#}
+
 
 {% load static %}
 
@@ -16,7 +86,8 @@
                                     data-cart-id="{{ cart.id }}"
                                     data-cart-change-url="{% url "cart:cart_change" %}">
                                     {% csrf_token %}
-                                    -</button>
+                                    -
+                                    </button>
                             </span>
                             <input type="text" class="form-control number" value="{{ cart.quantity }}"
                                 readonly>
@@ -25,14 +96,15 @@
                                     data-cart-id="{{ cart.id }}"
                                     data-cart-change-url="{% url "cart:cart_change" %}">
                                     {% csrf_token %}
-                                    +</button>
+                                    +
+                                    </button>
                             </span>
                         </div>
                     </div>
                     <div class="col p-0">
                         <p>x {{ cart.product.sell_price }} = </p>
                     </div>
-                    <div class="col p-0"><strong> {{cart.products_price}} грн</strong></div>
+                    <div class="col p-0"><strong> {{cart.products_price}} $</strong></div>
                     <div class="col p-0">
                         <a href="{% url "cart:cart_remove" %}" class="remove-from-cart"
                         data-cart-id="{{ cart.id }}">
@@ -48,22 +120,18 @@
 </div>
 <div class="card mb-3 shadow-lg">
     <div class="card-footer">
-        <p class="float-left">Разом товарів на суму</p>
+        <p class="float-left">Всього <strong>{{ carts.total_quantity }}</strong> товарів на суму</p>
         <h4 class="float-left"><strong>{{ carts.total_price }} грн</strong></h4>
     </div>
 </div>
-{% if carts and not order %}
+{% if carts and not orders %}
     {% if user.is_authenticated %}
-        {% if not cart_button_exists %}
-            <a class="btn btn-dark order-button" href="{% url 'orders:create_order' %}">
-                Оформити замовлення
-            </a>
-        {% endif %}
+        <a class="btn btn-dark order-btn" href="{% url 'orders:create_order' %}">
+            Оформити замовлення
+        </a>
     {% else %}
-        {% if not cart_button_exists %}
-            <a class="btn btn-dark order-button" href="{% url 'users:login' %}?next={% url 'orders:create_order' %}" id="submit-order-btn">
-                Оформити замовлення
-            </a>
-        {% endif %}
+        <a class="btn btn-dark order-btn" href="{% url 'users:login' %}?next={% url 'orders:create_order' %}">
+            Увійти, щоб оформити замовлення
+        </a>
     {% endif %}
 {% endif %}
